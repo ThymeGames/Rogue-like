@@ -2,11 +2,15 @@ extends Node
 
 class_name ControllerManager
 
+# ToDo:
+# https://github.com/KoBeWi/Godot-Input-Remap
+
 var registered_devices : Array
 
 func _ready() -> void:
 	describe_connected_joypads()
 	add_all_available()
+	# warning-ignore:RETURN_VALUE_DISCARDED
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	
 
@@ -34,17 +38,12 @@ func describe_connected_joypads():
 #	print_debug(msg)
 
 
-func _unhandled_input(event):
-	for action in InputMap.get_actions():
-		if event.is_action_pressed(action):
-			print_debug(action, " ", event.as_text())
-
-
 func add_child_joypad(device):
 	var joypad_manager = JoypadManager.new(device)
 	joypad_manager.update_input_map_joypad()
 	var joypad_name = "JoypadManager_%s" % device
 	joypad_manager.name = joypad_name
+	joypad_manager.is_active = true
 	add_child(joypad_manager)
 	print_debug("added ", joypad_name)
 	
@@ -55,10 +54,10 @@ func add_all_available():
 		add_child_joypad(device)
 
 
-func remove_child_joypad(device):
+func inactivate_child_joypad(device):
 	var joypad_name = "JoypadManager_%s" % device
 	var child = get_node(joypad_name)
-	remove_child(child)
+	child.is_active = false
 
 
 func _on_joy_connection_changed(device: int, connected: bool) -> void:
@@ -69,5 +68,4 @@ func _on_joy_connection_changed(device: int, connected: bool) -> void:
 		
 	else:
 		print_debug("Disconnected device {d}.".format({"d": device}))
-		remove_child_joypad(device)
-
+		inactivate_child_joypad(device)

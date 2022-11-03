@@ -6,6 +6,20 @@ var device_name: String setget warn_private
 var device_guid: String setget warn_private
 var device_inputmap_prefix: String setget warn_private
 
+var action2event := {}
+var event2action := {}
+
+var is_active := false setget set_is_active
+
+
+func set_is_active(_is_active):
+	# https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html?highlight=is_active#gdscript-style-guide
+    is_active = _is_active
+    set_process(_is_active)
+    set_process_unhandled_input(_is_active)
+    set_block_signals(not _is_active)
+
+
 # warning-ignore:unused_argument
 func warn_private(smth):
 	push_warning("private field, won't change")
@@ -16,6 +30,18 @@ func _init(device: int):
 	device_name = Input.get_joy_name(device_index)
 	device_guid = Input.get_joy_guid(device_index)
 	device_inputmap_prefix = "joypad{device}".format({"device": device_index})
+
+
+func _unhandled_input(event):
+
+	var event_text = event.as_text()
+	var action = event2action.get(event_text)
+	
+	if action == null:
+		return
+	
+	if event.is_action(action):
+		print_debug(action)
 
 
 func update_input_map_joypad() -> void:
@@ -86,17 +112,25 @@ func map_motion(device: int, action: String, axis: int, axis_value: float, deadz
 		
 	erase_event(event)
 	map_action(action, event, deadzone)
-	
+	action2event[action] = event
+	event2action[event] = action
+	var event_text = event.as_text()
+	action2event[action] = event_text
+	event2action[event_text] = action
 		
 func map_button(device: int, action: String, button_index: int) -> void:
 
 	var event = InputEventJoypadButton.new()
 	event.device = device
 	event.button_index = button_index
+	event.pressed = true
 	
 	erase_event(event)
 	map_action(action, event)
-	
+	var event_text = event.as_text()
+	action2event[action] = event_text
+	event2action[event_text] = action
+
 
 func map_action(action: String, event: InputEvent, deadzone:=0.0):
 
