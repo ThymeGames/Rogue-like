@@ -7,30 +7,13 @@ class_name ControllerManager
 
 var registered_devices : Array
 
+var utils := preload("utils.gd")
+
 func _ready() -> void:
-	describe_connected_joypads()
+	utils.describe_connected_joypads()
 	add_all_available()
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
-	
-
-func describe_connected_joypads():
-	
-	var connected_joypads = Input.get_connected_joypads()
-	
-	var lines : Array = []
-	var header = "Found %s gamepads" % connected_joypads.size()
-	lines.append(header)
-	
-	for joypad in connected_joypads:
-		var joypad_name := Input.get_joy_name(joypad)
-		var joypad_guid := Input.get_joy_guid(joypad)
-		var line = "{device} - {name} - {guid}"
-		line = line.format({"device": joypad, "name": joypad_name, "guid": joypad_guid})
-		lines.append(line)
-		
-	var msg = "\n".join(lines)	
-	print_debug(msg)	
 
 
 #func _unhandled_input(event):
@@ -54,10 +37,14 @@ func add_all_available():
 		add_child_joypad(device)
 
 
-func inactivate_child_joypad(device):
-	var joypad_name = "JoypadManager_%s" % device
+func get_joypad(index: int) -> JoypadManager:
+	var joypad_name = "JoypadManager_%s" % index
 	var child = get_node(joypad_name)
-	child.is_active = false
+	return child
+
+
+func inactivate_child_joypad(device):
+	get_joypad(device).is_active = false
 
 
 func _on_joy_connection_changed(device: int, connected: bool) -> void:

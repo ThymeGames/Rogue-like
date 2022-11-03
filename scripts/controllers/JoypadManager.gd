@@ -6,6 +6,7 @@ var device_name: String setget warn_private
 var device_guid: String setget warn_private
 var device_inputmap_prefix: String setget warn_private
 
+var registered_actions := []
 var action2event := {}
 var event2action := {}
 
@@ -14,10 +15,10 @@ var is_active := false setget set_is_active
 
 func set_is_active(_is_active):
 	# https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html?highlight=is_active#gdscript-style-guide
-    is_active = _is_active
-    set_process(_is_active)
-    set_process_unhandled_input(_is_active)
-    set_block_signals(not _is_active)
+	is_active = _is_active
+	set_process(_is_active)
+	set_process_unhandled_input(_is_active)
+	set_block_signals(not _is_active)
 
 
 # warning-ignore:unused_argument
@@ -36,7 +37,7 @@ func _unhandled_input(event):
 
 	var event_text = event.as_text()
 	var action = event2action.get(event_text)
-	
+
 	if action == null:
 		return
 	
@@ -103,7 +104,7 @@ func update_input_map_joypad() -> void:
 		map_motion(device, action, axis, -1.0)
 		
 		
-func map_motion(device: int, action: String, axis: int, axis_value: float, deadzone:=0.01) -> void:
+func map_motion(device: int, action: String, axis: int, axis_value: float, deadzone:=0.1) -> void:
 	
 	var event = InputEventJoypadMotion.new()
 	event.device = device
@@ -112,12 +113,8 @@ func map_motion(device: int, action: String, axis: int, axis_value: float, deadz
 		
 	erase_event(event)
 	map_action(action, event, deadzone)
-	action2event[action] = event
-	event2action[event] = action
-	var event_text = event.as_text()
-	action2event[action] = event_text
-	event2action[event_text] = action
 		
+
 func map_button(device: int, action: String, button_index: int) -> void:
 
 	var event = InputEventJoypadButton.new()
@@ -127,9 +124,6 @@ func map_button(device: int, action: String, button_index: int) -> void:
 	
 	erase_event(event)
 	map_action(action, event)
-	var event_text = event.as_text()
-	action2event[action] = event_text
-	event2action[event_text] = action
 
 
 func map_action(action: String, event: InputEvent, deadzone:=0.0):
@@ -140,10 +134,45 @@ func map_action(action: String, event: InputEvent, deadzone:=0.0):
 	InputMap.add_action(action, deadzone)
 	InputMap.action_add_event(action, event)
 
-	print_debug("New action: ", action, event.as_text())
+	registered_actions.append(action)
+
+	action2event[action] = event
+	event2action[event] = action
+	var event_text = event.as_text()
+	action2event[action] = event_text
+	event2action[event_text] = action
+
+	# print_debug("New action: ", action, event.as_text())
 
 
 func erase_event(event: InputEvent):
 	for old_action in InputMap.get_actions():
 		if InputMap.action_has_event(old_action, event):
 			InputMap.action_erase_event(old_action, event)
+
+
+func jsonify() -> Dictionary:
+
+	var rows = []
+
+	for action in registered_actions:
+		var events = InputMap.get_action_list(action)
+		assert(events.size() == 1)
+		var event = events[0]
+
+		var row = {
+			"action": action,
+			"event": event.get_class(), 
+		}
+		
+		if event is InputEventJoypadButton:
+			row["button_index"] = event.button_index
+		elif event is InputEventJoypadMotion:
+			row["axis"] = event.axis
+			row["axis_value"] = event.axis_value
+
+		rows.append(row)
+		
+	var result = {"input_map": rows}
+
+	return result
