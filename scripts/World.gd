@@ -7,7 +7,7 @@ var controller_manager : Node
 func _ready():
 	controller_manager = get_parent().get_node("ControllerManager")
 	add_player(0)
-	add_player(1)
+#	add_player(1)
 
 func add_player(index: int) -> void:
 
