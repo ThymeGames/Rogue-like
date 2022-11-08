@@ -22,7 +22,7 @@ func _process(delta: float):
     reset_actions()
 
 
-func is_action_pressed(action: String) -> bool:
+func is_action_just_pressed(action: String) -> bool:
     return abs(action_dict[action]) > 0
 
 
