@@ -7,11 +7,11 @@ var host: Node2D
 var conductor  # AI or Controller (gamepad)
 
 func enter() -> void:
-	pass
+	print_debug(name)
 	# player.animations.play(animation_name)
 
 func exit() -> void:
-	pass
+	print_debug(name)
 
 # func input(event: InputEvent) -> BaseState:
 # 	return null
@@ -19,5 +19,5 @@ func exit() -> void:
 func process(delta: float) -> BaseState:
 	return null
 
-func physics_process(delta: float) -> BaseState:
-	return null
+# func physics_process(delta: float) -> BaseState:
+# 	return null
