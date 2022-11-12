@@ -1,0 +1,5 @@
+outs:
+- md5: 97440a96795d215f153fd5df5762e972.dir
+  size: 25048
+  nfiles: 23
+  path: art

@@ -3,3 +3,5 @@
 export_presets.cfg
 .mono/
 .DS_Store
+.venv
+/art
