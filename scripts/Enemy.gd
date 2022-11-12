@@ -2,8 +2,9 @@ extends Node2D
 
 
 func _ready() -> void:
-	$StateManager.init(self, $AI)
+    var conductor = $AI
+    $StateManager.init(self, conductor)
 
 
 func _process(delta):
-	$StateManager.process(delta)
+    $StateManager.update(delta)
