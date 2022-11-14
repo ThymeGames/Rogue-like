@@ -9,12 +9,9 @@ func _process(delta):
         visible = not is_visible_in_tree()
         print_debug(name, "action!")
 
-    var v_direction = Vector2(
-        $Conductor.get_action_strength("move_x"),
-        $Conductor.get_action_strength("move_y")
-    ).limit_length()
+    var v_direction = $Conductor.get_vector()
 
-    print(v_direction)
+    $Conductor.is_action_pressed("moving_right")
 
     position = position + v_direction * speed * delta
     # position.x = round(position_float.x)
