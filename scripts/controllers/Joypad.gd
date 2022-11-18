@@ -11,13 +11,13 @@ func _ready() -> void:
 
 
 func init_action_mapper() -> void:
-    action_mapper = {
-        "move_right": "LS_right",
-        "move_left": "LS_left",
-        "move_up": "LS_down",
-        "move_down": "LS_up",
-        "action": "action_down"
-    }
+	action_mapper = {
+		"move_right": "LS_right",
+		"move_left": "LS_left",
+		"move_up": "LS_down",
+		"move_down": "LS_up",
+		"action": "action_down"
+	}
 
 
 func set_device(device):
@@ -26,11 +26,12 @@ func set_device(device):
 		device_index = device
 		device_name = Input.get_joy_name(device_index)
 		device_guid = Input.get_joy_guid(device_index)
-		device_inputmap_prefix = "joypad{device}".format({"device": device_index})
+		device_inputmap_prefix = "joypad{device}".format({"device": device})
 		update_input_map()
-        # print(InputMap.get_actions())
+		# print(InputMap.get_actions())
 	else:
-		push_error("device {device} is not connected".format([device]))
+		var msg = "device {device} is not connected".format({"device": device})
+		push_error(msg)
 
 
 func update_input_map() -> void:
