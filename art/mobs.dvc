@@ -1,0 +1,5 @@
+outs:
+- md5: 251e873a5da68cc4dbe2693941811b9a.dir
+  size: 7415
+  nfiles: 16
+  path: mobs

@@ -1,2 +1,4 @@
+[core]
+    remote = chorzoww_gdremote
 ['remote "chorzoww_gdremote"']
     url = gdrive://1KicaNHE6th11pki76-41iFdb-WphcWyf

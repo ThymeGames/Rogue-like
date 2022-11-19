@@ -1,0 +1,5 @@
+outs:
+- md5: 5f909a504de88a82bc17288ed71d0f0f.dir
+  size: 2187
+  nfiles: 4
+  path: player
