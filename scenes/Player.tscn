@@ -1,18 +1,38 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://art/player/knight.png" type="Texture" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://scripts/controllers/Joypad.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Weapon.tscn" type="PackedScene" id=4]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "defend",
+"speed": 5.0
+} ]
+
+[node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Body" type="AnimatedSprite" parent="Sprites"]
 physics_interpolation_mode = 1
-texture = ExtResource( 1 )
+frames = SubResource( 1 )
+animation = "defend"
 
 [node name="Conductor" type="Node" parent="."]
 script = ExtResource( 3 )
 
 [node name="LookDirection" type="Polygon2D" parent="."]
+visible = false
 polygon = PoolVector2Array( 20, -2, 21, 4, 43, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Gears" type="Node2D" parent="."]
+position = Vector2( 14, 4 )
+
+[node name="Weapon" parent="Gears" instance=ExtResource( 4 )]

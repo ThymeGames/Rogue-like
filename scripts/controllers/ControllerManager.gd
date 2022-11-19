@@ -5,9 +5,10 @@ class_name ControllerManager
 # ToDo:
 # https://github.com/KoBeWi/Godot-Input-Remap
 
-var registered_devices : Array
+var registered_devices: Array
 
 var utils := preload("utils.gd")
+
 
 func _ready() -> void:
 	utils.describe_connected_joypads()
@@ -29,8 +30,8 @@ func add_child_joypad(device):
 	joypad_manager.is_active = true
 	add_child(joypad_manager)
 	print_debug("added ", joypad_name)
-	
-	
+
+
 func add_all_available():
 	var devices = Input.get_connected_joypads()
 	for device in devices:
@@ -48,11 +49,10 @@ func inactivate_child_joypad(device):
 
 
 func _on_joy_connection_changed(device: int, connected: bool) -> void:
-
 	if connected:
 		print_debug("Connected device {d}.".format({"d": device}))
 		add_child_joypad(device)
-		
+
 	else:
 		print_debug("Disconnected device {d}.".format({"d": device}))
 		inactivate_child_joypad(device)
