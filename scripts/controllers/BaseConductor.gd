@@ -61,6 +61,19 @@ func get_vector(
     return result
 
 
+func get_look_vector() -> Vector2:
+    return get_vector(
+        "look_left",
+        "look_right",
+        "look_down",
+        "look_up"
+    )
+
+
+func get_move_vector() -> Vector2:
+    return get_vector()
+
+
 func update_input_map() -> void:
     pass
 
