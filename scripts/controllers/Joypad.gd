@@ -127,16 +127,3 @@ func map_button(action: String, button_index: int) -> void:
 
     erase_event(event)
     map_action(action, event)
-
-
-func get_look_vector() -> Vector2:
-    return get_vector(
-        "look_left",
-        "look_right",
-        "look_down",
-        "look_up"
-    )
-
-
-func get_move_vector() -> Vector2:
-    return get_vector()
