@@ -23,7 +23,7 @@ func init_action_mapper() -> void:
         "look_up": "RS_down",
         "look_down": "RS_up",
 
-        "action": "action_down"
+        "action": "RB"
 
     }
 
