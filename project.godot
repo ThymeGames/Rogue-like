@@ -19,11 +19,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/controllers/BaseConductor.gd"
 }, {
-"base": "Reference",
-"class": "BaseEffect",
-"language": "GDScript",
-"path": "res://scripts/combat/effect/BaseEffect.gd"
-}, {
 "base": "Node",
 "class": "BaseState",
 "language": "GDScript",
@@ -59,21 +54,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/controllers/Keyboard.gd"
 }, {
-"base": "LastingEffect",
-"class": "LastingContinuousEffect",
-"language": "GDScript",
-"path": "res://scripts/combat/effect/LastingContinuousEffect.gd"
-}, {
-"base": "LastingEffect",
-"class": "LastingDiscreteEffect",
-"language": "GDScript",
-"path": "res://scripts/combat/effect/LastingDiscreteEffect.gd"
-}, {
-"base": "BaseEffect",
-"class": "LastingEffect",
-"language": "GDScript",
-"path": "res://scripts/combat/effect/LastingEffect.gd"
-}, {
 "base": "Area2D",
 "class": "MeleeWeapon",
 "language": "GDScript",
@@ -87,7 +67,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AI": "",
 "BaseConductor": "",
-"BaseEffect": "",
 "BaseState": "",
 "BaseWeapon": "",
 "ConductedState": "",
@@ -95,9 +74,6 @@ _global_script_class_icons={
 "Joypad": "",
 "JoypadManager": "",
 "Keyboard": "",
-"LastingContinuousEffect": "",
-"LastingDiscreteEffect": "",
-"LastingEffect": "",
 "MeleeWeapon": "",
 "PrintDebugState": ""
 }
@@ -139,7 +115,7 @@ texture={
 "compress/lossy_quality": 0.7,
 "compress/mode": 0,
 "compress/normal_map": 0,
-"detect_3d": false,
+"detect_3d": true,
 "flags/anisotropic": false,
 "flags/filter": false,
 "flags/mipmaps": false,
