@@ -10,7 +10,6 @@
 [ext_resource path="res://scripts/combat/SlashSprite.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 4.5, 2.5 )
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 8 )
@@ -91,12 +90,10 @@ script = ExtResource( 3 )
 
 [node name="Melee" type="Area2D" parent="Ammunition"]
 script = ExtResource( 7 )
-slash_length = 4.0
-attack_duration = 0.3
-length = 32.0
+length = 25.0
+width = 8.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="Ammunition/Melee"]
-position = Vector2( 13.5, 0.5 )
 shape = SubResource( 4 )
 disabled = true
 
