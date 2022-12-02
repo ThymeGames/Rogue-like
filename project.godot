@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/state_machine/BaseState.gd"
 }, {
+"base": "Node2D",
+"class": "BaseWeapon",
+"language": "GDScript",
+"path": "res://scripts/combat/weapon/BaseWeapon.gd"
+}, {
 "base": "BaseState",
 "class": "ConductedState",
 "language": "GDScript",
@@ -49,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/controllers/Keyboard.gd"
 }, {
+"base": "Area2D",
+"class": "MeleeWeapon",
+"language": "GDScript",
+"path": "res://scripts/combat/weapon/MeleeWeapon.gd"
+}, {
 "base": "BaseState",
 "class": "PrintDebugState",
 "language": "GDScript",
@@ -58,18 +68,20 @@ _global_script_class_icons={
 "AI": "",
 "BaseConductor": "",
 "BaseState": "",
+"BaseWeapon": "",
 "ConductedState": "",
 "ControllerManager": "",
 "Joypad": "",
 "JoypadManager": "",
 "Keyboard": "",
+"MeleeWeapon": "",
 "PrintDebugState": ""
 }
 
 [application]
 
 config/name="Rogue-like"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/Player.tscn"
 config/icon="res://art/icon.png"
 
 [display]
@@ -77,8 +89,8 @@ config/icon="res://art/icon.png"
 window/size/width=640
 window/size/height=360
 window/size/resizable=false
-window/size/test_width=1280
-window/size/test_height=720
+window/size/test_width=640
+window/size/test_height=360
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
@@ -103,7 +115,7 @@ texture={
 "compress/lossy_quality": 0.7,
 "compress/mode": 0,
 "compress/normal_map": 0,
-"detect_3d": false,
+"detect_3d": true,
 "flags/anisotropic": false,
 "flags/filter": false,
 "flags/mipmaps": false,

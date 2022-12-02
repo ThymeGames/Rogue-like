@@ -45,7 +45,7 @@ func _process(delta: float):
     
 
 func find_player():
-    var target_name = "Player_0"
+    var target_name = "Player"
     if not world.has_node(target_name):
         return
     

@@ -1,7 +1,7 @@
 extends ConductedState
 
 
-export(float) var speed := 60
+export(float) var speed := 60.0
 
 export(NodePath) var idle_node
 
