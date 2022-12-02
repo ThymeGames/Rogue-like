@@ -91,7 +91,8 @@ script = ExtResource( 3 )
 
 [node name="Melee" type="Area2D" parent="Ammunition"]
 script = ExtResource( 7 )
-angle_rad_ready = 1.047
+slash_length = 4.504
+attack_duration = 0.311
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ammunition/Melee"]
 position = Vector2( 11.5, 0.5 )
@@ -101,6 +102,10 @@ disabled = true
 [node name="Sprite" type="Sprite" parent="Ammunition/Melee"]
 position = Vector2( 12, 0 )
 texture = ExtResource( 6 )
+
+[node name="Cooldown" type="Timer" parent="Ammunition/Melee"]
+wait_time = 0.25
+one_shot = true
 
 [node name="SlashSprite" type="Sprite" parent="Ammunition"]
 material = SubResource( 6 )

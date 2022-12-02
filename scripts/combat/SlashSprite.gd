@@ -1,6 +1,6 @@
 extends Sprite
 
-export(float, 0.01, 10.0) var length := 1.0
+export(float, 0.01, 10.0) var duration := 1.0
 export(float, 0.0, 1.0) var head_switch := 0.3
 export(float, 0.0, 1.0) var tail_switch := 0.7
 
@@ -73,25 +73,25 @@ func allocate_tracks() -> void:
 
 func update_animation() -> void:
         
-    animation.length = length
+    animation.length = duration
         
     animation.track_set_key_time(track_mapper["phi_tail"], 0, 0.0)
     animation.track_set_key_value(track_mapper["phi_tail"], 0, phi_start)
     
-    animation.track_set_key_time(track_mapper["phi_tail"], 1, tail_switch * length)
+    animation.track_set_key_time(track_mapper["phi_tail"], 1, tail_switch * duration)
     animation.track_set_key_value(track_mapper["phi_tail"], 1, phi_start)
 
-    animation.track_set_key_time(track_mapper["phi_tail"], 2, length)
+    animation.track_set_key_time(track_mapper["phi_tail"], 2, duration)
     animation.track_set_key_value(track_mapper["phi_tail"], 2, phi_end)
     
     
     animation.track_set_key_time(track_mapper["phi_head"], 0, 0.0)
     animation.track_set_key_value(track_mapper["phi_head"], 0, phi_start)
     
-    animation.track_set_key_time(track_mapper["phi_head"], 1, head_switch * length)
+    animation.track_set_key_time(track_mapper["phi_head"], 1, head_switch * duration)
     animation.track_set_key_value(track_mapper["phi_head"], 1, phi_end)
 
-    animation.track_set_key_time(track_mapper["phi_head"], 2, length)
+    animation.track_set_key_time(track_mapper["phi_head"], 2, duration)
     animation.track_set_key_value(track_mapper["phi_head"], 2, phi_end)
 
 

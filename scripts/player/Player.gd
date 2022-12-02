@@ -3,54 +3,58 @@ extends Node2D
 export var speed = 200
 var look_rotation := 0.0  # radians
 
+onready var weapon = $Ammunition/Melee
+var attack_sign := 1
 
 var utils = preload("res://scripts/utils.gd")
-
-var weapons = []
-
-
-func _ready() -> void:
-    for child in $Ammunition.get_children():
-        if child is MeleeWeapon:
-            weapons.append(child)
 
 
 func slash() -> void:
 
     var slash = $Ammunition/SlashSprite
     
-    var clockwise = not slash.clockwise
-    slash.clockwise = clockwise
+#    var clockwise = not slash.clockwise
+#    slash.clockwise = clockwise
     
-    var phi_start := 0.0
-    var phi_end := 0.0
+    var slash_length_half = weapon.slash_length / 2.0
     
-    if clockwise:
-        phi_start = fmod(look_rotation - PI / 3, 2.0 * PI)
-        phi_end = fmod(look_rotation + PI / 3, 2.0 * PI)
-        if phi_end < phi_start:
-            phi_end += 2 * PI
-    else:
-        phi_start = fmod(look_rotation + PI / 3, 2.0 * PI)
-        phi_end = fmod(look_rotation - PI / 3, 2.0 * PI)
-        if phi_end > phi_start:
-            phi_end -= 2 * PI
+    var phi_start : float = weapon.rotation
+    var phi_end : float = phi_start - weapon.slash_length * attack_sign
+    
+    slash.clockwise = phi_end > phi_start
+    
+#    if clockwise:
+##        phi_start = fmod(phi_start, 2.0 * PI)
+##        phi_end = fmod(look_rotation + slash_length_half, 2.0 * PI)
+#        if phi_end < phi_start:
+#            phi_end += 2 * PI
+#    else:
+##        phi_start = fmod(look_rotation + slash_length_half, 2.0 * PI)
+##        phi_end = fmod(look_rotation - slash_length_half, 2.0 * PI)
+#        if phi_end > phi_start:
+#            phi_end -= 2 * PI
 
     slash.phi_start = phi_start
     slash.phi_end = phi_end
-    slash.length = 0.15
+    slash.duration = weapon.attack_duration
+    
+    print(phi_start, " ", phi_end)
 
     slash.update_animation()
     slash.play()
     
-    for weapon in weapons:
-        utils.set_rotation_with_position(weapon, phi_end)
-        weapon.z_index = sign(weapon.rotation)
+    update_attack_sign()
+    hold_melee_weapon(weapon)
 
 
 func action() -> void:
-    if $Conductor.is_action_just_pressed("action"):
+    if not $Conductor.is_action_just_pressed("action"):
+        return
+        
+    var cooldown = weapon.get_node("Cooldown")
+    if cooldown.is_stopped():
         slash()
+        cooldown.start()
         
         
 func update_look_rotation(min_look_vector_length := 0.1) -> void:
@@ -67,27 +71,25 @@ func update_look_rotation(min_look_vector_length := 0.1) -> void:
     
 func is_looking_left() -> bool:
     return abs(look_rotation) > PI / 2
-    
-    
-func negate_scale_x() -> void:
-    scale = Vector2(-1.0 if is_looking_left() else 1.0, scale.y)
 
 
 func flip_h() -> void:
     $Sprite.flip_h = is_looking_left()
     
     
-func update_melee_weapon(node):
-    var attack_sign = 1 if node.attack_counter % 2 == 0 else -1
-    var ammunition_rotation = look_rotation + attack_sign * node.angle_rad_ready
-    ammunition_rotation = utils.clip_rotation(ammunition_rotation)
-    utils.set_rotation_with_position(node, ammunition_rotation)
-    node.z_index = sign(node.rotation)
+func update_attack_sign() -> void:
+    attack_sign *= -1
     
 
-func update_ammunition() -> void:
-    for weapon in weapons:
-        update_melee_weapon(weapon)
+func hold_melee_weapon(weapon: MeleeWeapon) -> void:
+
+    # slash_length is in radians
+    var slash_length_half = weapon.slash_length / 2.0
+    
+    var ammunition_rotation = look_rotation + attack_sign * slash_length_half
+    ammunition_rotation = utils.clip_rotation(ammunition_rotation)
+    utils.set_rotation_with_position(weapon, ammunition_rotation)
+    weapon.z_index = sign(weapon.rotation)
 
 
 func move(delta) -> void:
@@ -97,10 +99,11 @@ func move(delta) -> void:
 
 func _process(delta):
 
-    update_look_rotation()
     move(delta)
     
+    update_look_rotation()
     flip_h()
 
+    hold_melee_weapon(weapon)
     action()
-#    update_ammunition()
+
