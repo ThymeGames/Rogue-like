@@ -3,6 +3,7 @@ class_name MeleeWeapon
 
 export(float, 0.0, 6.28) var slash_length = 2.0  # radians
 export(float, 0.0, 1.0) var attack_duration = 0.25  # seconds
+export(float, 0.0, 32.0) var length = 16.0 # pixels
 
 
 func _ready() -> void:

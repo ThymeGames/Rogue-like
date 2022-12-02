@@ -10,7 +10,7 @@
 [ext_resource path="res://scripts/combat/SlashSprite.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 6.5, 2.5 )
+extents = Vector2( 4.5, 2.5 )
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 8 )
@@ -18,13 +18,13 @@ shader_param/radius_outer = 0.5
 shader_param/_phi_tail = 0.0
 shader_param/_phi_head = 0.0
 shader_param/clockwise = false
-shader_param/width_tail = 0.02
-shader_param/width_head = 0.1
+shader_param/width_tail = 0.1
+shader_param/width_head = 0.2
 
 [sub_resource type="Animation" id=5]
 length = 0.2
 tracks/0/type = "value"
-tracks/0/path = NodePath("Ammunition/Melee/CollisionShape2D:disabled")
+tracks/0/path = NodePath("Ammunition/Melee/Hitbox:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -65,7 +65,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Ammunition/Melee/CollisionShape2D:disabled")
+tracks/2/path = NodePath("Ammunition/Melee/Hitbox:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -91,11 +91,12 @@ script = ExtResource( 3 )
 
 [node name="Melee" type="Area2D" parent="Ammunition"]
 script = ExtResource( 7 )
-slash_length = 4.504
-attack_duration = 0.311
+slash_length = 4.0
+attack_duration = 0.3
+length = 32.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ammunition/Melee"]
-position = Vector2( 11.5, 0.5 )
+[node name="Hitbox" type="CollisionShape2D" parent="Ammunition/Melee"]
+position = Vector2( 13.5, 0.5 )
 shape = SubResource( 4 )
 disabled = true
 
