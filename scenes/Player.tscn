@@ -1,72 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://art/player/characters/knight-handless.png" type="Texture" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://scripts/controllers/Joypad.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Melee.tscn" type="PackedScene" id=4]
 
-[sub_resource type="Animation" id=5]
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("Ammunition/Melee/Hitbox:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-
-[sub_resource type="Animation" id=3]
-resource_name = "slash"
-length = 0.133333
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/path = NodePath("Ammunition/Melee/Slash:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.116667 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0, 7 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Ammunition/Melee/Slash:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.133333 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Ammunition/Melee/Hitbox:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-
 [node name="Player" type="Node2D"]
 script = ExtResource( 2 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 5 )
-anims/slash = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 physics_interpolation_mode = 1
