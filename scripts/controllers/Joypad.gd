@@ -12,19 +12,15 @@ func _ready() -> void:
 
 func init_action_mapper() -> void:
     action_mapper = {
-
         "move_right": "LS_right",
         "move_left": "LS_left",
         "move_up": "LS_down",
         "move_down": "LS_up",
-
         "look_right": "RS_right",
         "look_left": "RS_left",
         "look_up": "RS_down",
         "look_down": "RS_up",
-
         "action": "RB"
-
     }
 
 

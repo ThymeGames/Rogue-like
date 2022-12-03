@@ -1,7 +1,6 @@
 class_name BaseConductor
 extends Node
 
-
 var device_inputmap_prefix: String
 
 var utils := preload("utils.gd")
@@ -13,7 +12,7 @@ var registered_actions := []
 
 func init_action_mapper() -> void:
     pass
-    
+
 
 func _init() -> void:
     init_action_mapper()
@@ -62,12 +61,7 @@ func get_vector(
 
 
 func get_look_vector() -> Vector2:
-    return get_vector(
-        "look_left",
-        "look_right",
-        "look_down",
-        "look_up"
-    )
+    return get_vector("look_left", "look_right", "look_down", "look_up")
 
 
 func get_move_vector() -> Vector2:

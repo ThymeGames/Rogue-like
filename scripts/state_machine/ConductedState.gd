@@ -1,7 +1,6 @@
 extends BaseState
 class_name ConductedState
 
-
 var conductor  # AI, Controller (gamepad) or Input
 
 

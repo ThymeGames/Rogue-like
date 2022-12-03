@@ -22,7 +22,6 @@ func init_action_mapper() -> void:
 
 
 func update_input_map() -> void:
-
     for i in range(65, 91):
         var action = char(i)
         var physical_scancode = i

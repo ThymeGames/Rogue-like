@@ -1,7 +1,6 @@
 extends Node
 
-
-export (NodePath) var starting_state
+export(NodePath) var starting_state
 var current_state: BaseState
 
 

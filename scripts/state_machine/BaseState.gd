@@ -1,7 +1,6 @@
 extends Node
 class_name BaseState
 
-
 var host: Node2D  # Enemy or Player
 
 
