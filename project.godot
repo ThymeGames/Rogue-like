@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/state_machine/BaseState.gd"
 }, {
-"base": "Node2D",
-"class": "BaseWeapon",
-"language": "GDScript",
-"path": "res://scripts/combat/weapon/BaseWeapon.gd"
-}, {
 "base": "BaseState",
 "class": "ConductedState",
 "language": "GDScript",
@@ -57,33 +52,27 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "MeleeWeapon",
 "language": "GDScript",
-"path": "res://scripts/combat/weapon/MeleeWeapon.gd"
+"path": "res://scripts/combat/weapon/melee/slash/MeleeWeapon.gd"
 }, {
 "base": "BaseState",
 "class": "PrintDebugState",
 "language": "GDScript",
 "path": "res://scripts/state_machine/PrintDebugState.gd"
 }, {
-"base": "CollisionShape2D",
-"class": "SectorHitbox",
-"language": "GDScript",
-"path": "res://scripts/SectorHitbox.gd"
-}, {
 "base": "Reference",
 "class": "SlashAnimator",
 "language": "GDScript",
-"path": "res://scripts/SlashAnimator.gd"
+"path": "res://scripts/combat/weapon/melee/slash/SlashAnimator.gd"
 }, {
 "base": "Sprite",
 "class": "SlashSprite",
 "language": "GDScript",
-"path": "res://scripts/combat/SlashSprite.gd"
+"path": "res://scripts/combat/weapon/melee/slash/SlashSprite.gd"
 } ]
 _global_script_class_icons={
 "AI": "",
 "BaseConductor": "",
 "BaseState": "",
-"BaseWeapon": "",
 "ConductedState": "",
 "ControllerManager": "",
 "Joypad": "",
@@ -91,7 +80,6 @@ _global_script_class_icons={
 "Keyboard": "",
 "MeleeWeapon": "",
 "PrintDebugState": "",
-"SectorHitbox": "",
 "SlashAnimator": "",
 "SlashSprite": ""
 }

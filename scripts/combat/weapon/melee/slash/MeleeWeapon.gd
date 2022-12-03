@@ -3,13 +3,15 @@ class_name MeleeWeapon
 
 export(float, 0.0, 32.0) var hitbox_length = 32.0  # pixels
 export(float, 0.0, 6.28) var slash_length = 2.0  # radians
-export(float, 0.0, 1.0) var attack_duration = 1.0  # seconds
+export(float, 0.0, 1.0) var shash_duration = 1.0  # seconds
 
 onready var sprite : Sprite = $Sprite
 onready var slash : SlashSprite = $Slash
 onready var cooldown : Timer = $Cooldown
-onready var hitbox : SectorHitbox = $Hitbox
+onready var hitbox : CollisionShape2D = $Hitbox
 onready var animation_player : AnimationPlayer = $AnimationPlayer
+
+var slash_animator : SlashAnimator
 
 var attack_sign := 1  # +1 or -1
 
@@ -18,7 +20,7 @@ var utils = preload("res://scripts/utils.gd")
 
 func _ready() -> void:
     
-    cooldown.wait_time = attack_duration
+    cooldown.wait_time = shash_duration
     cooldown.stop()
     
     hitbox.length = hitbox_length
@@ -31,17 +33,13 @@ func _ready() -> void:
     
     slash.radius_outer = radius_outer
     
-    var animation :=  Animation.new()
-    var err = animation_player.add_animation("slash", animation)
-    assert(err == OK, "Failed to create animation")
+    slash_animator = SlashAnimator.new(
+        hitbox,
+        slash,
+        animation_player
+    )
     
-    animation.length = attack_duration
-    
-    hitbox.animation_player = animation_player
-    hitbox.ready()
-    
-    slash.animation_player = animation_player
-    slash.ready()
+    slash_animator.duration = shash_duration
 
 
 func do_slash() -> void:
@@ -56,22 +54,14 @@ func do_slash() -> void:
     
     var clockwise = phi_end > phi_start
     
-    hitbox.clockwise = clockwise
-    hitbox.duration = attack_duration * slash.head_switch
-    hitbox.phi_start = phi_start
-    hitbox.phi_end = phi_end 
-    hitbox.update_phis()
-
-    slash.clockwise = clockwise
-    slash.duration = attack_duration
-    slash.phi_start = phi_start
-    slash.phi_end = phi_end
-    slash.update_phis()
-
-    animation_player.play("slash")
+    slash_animator.clockwise = clockwise
+    slash_animator.phi_start = phi_start
+    slash_animator.phi_end = phi_end 
+    slash_animator.update_tracks()
+    slash_animator.play()
     
     update_attack_sign()
-    
+
     
 func update_attack_sign() -> void:
     attack_sign *= -1
@@ -87,9 +77,9 @@ func update_rotation(look_rotation=null) -> void:
     var rotation_new = look_rotation + attack_sign * slash_length_half
     rotation_new = utils.clip_rotation(rotation_new)
     
-    utils.set_rotation_with_position(sprite, rotation_new)
-    
     if cooldown.is_stopped():
         utils.set_rotation_with_position(hitbox, rotation_new)
+    
+    utils.set_rotation_with_position(sprite, hitbox.rotation)
     
     z_index = int(sign(rotation))
