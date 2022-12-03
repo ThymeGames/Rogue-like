@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://art/player/empty.png" type="Texture" id=1]
+[ext_resource path="res://scripts/combat/weapon/melee/slash/MeleeWeapon.gd" type="Script" id=2]
+[ext_resource path="res://scripts/combat/weapon/melee/slash/SlashSprite.gd" type="Script" id=3]
+[ext_resource path="res://scripts/combat/weapon/melee/slash/Hitbox.gd" type="Script" id=4]
+[ext_resource path="res://art/weapons/sword/acid-sword-16x16.png" type="Texture" id=5]
+[ext_resource path="res://shaders/slash.gdshader" type="Shader" id=6]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 6 )
+shader_param/radius_outer = 0.5
+shader_param/_phi_tail = 2.524
+shader_param/_phi_head = -2.663
+shader_param/clockwise = false
+shader_param/width_tail = 0.1
+shader_param/width_head = 0.2
+
+[node name="Melee" type="Area2D"]
+script = ExtResource( 2 )
+shash_duration = 0.289
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+disabled = true
+script = ExtResource( 4 )
+width = 8.0
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 12, 0 )
+texture = ExtResource( 5 )
+
+[node name="Slash" type="Sprite" parent="."]
+visible = false
+material = SubResource( 6 )
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
