@@ -63,6 +63,21 @@ _global_script_classes=[ {
 "class": "PrintDebugState",
 "language": "GDScript",
 "path": "res://scripts/state_machine/PrintDebugState.gd"
+}, {
+"base": "CollisionShape2D",
+"class": "SectorHitbox",
+"language": "GDScript",
+"path": "res://scripts/SectorHitbox.gd"
+}, {
+"base": "Reference",
+"class": "SlashAnimator",
+"language": "GDScript",
+"path": "res://scripts/SlashAnimator.gd"
+}, {
+"base": "Sprite",
+"class": "SlashSprite",
+"language": "GDScript",
+"path": "res://scripts/combat/SlashSprite.gd"
 } ]
 _global_script_class_icons={
 "AI": "",
@@ -75,7 +90,10 @@ _global_script_class_icons={
 "JoypadManager": "",
 "Keyboard": "",
 "MeleeWeapon": "",
-"PrintDebugState": ""
+"PrintDebugState": "",
+"SectorHitbox": "",
+"SlashAnimator": "",
+"SlashSprite": ""
 }
 
 [application]
@@ -86,11 +104,11 @@ config/icon="res://art/icon.png"
 
 [display]
 
-window/size/width=640
-window/size/height=360
+window/size/width=320
+window/size/height=320
 window/size/resizable=false
 window/size/test_width=640
-window/size/test_height=360
+window/size/test_height=640
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

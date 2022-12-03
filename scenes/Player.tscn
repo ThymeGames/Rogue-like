@@ -1,24 +1,14 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://art/player/characters/knight-handless.png" type="Texture" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://scripts/controllers/Joypad.gd" type="Script" id=3]
 [ext_resource path="res://art/player/empty.png" type="Texture" id=4]
+[ext_resource path="res://scripts/SectorHitbox.gd" type="Script" id=5]
 [ext_resource path="res://art/weapons/sword/acid-sword-16x16.png" type="Texture" id=6]
 [ext_resource path="res://scripts/combat/weapon/MeleeWeapon.gd" type="Script" id=7]
 [ext_resource path="res://shaders/slash.gdshader" type="Shader" id=8]
 [ext_resource path="res://scripts/combat/SlashSprite.gd" type="Script" id=9]
-
-[sub_resource type="RectangleShape2D" id=4]
-
-[sub_resource type="ShaderMaterial" id=6]
-shader = ExtResource( 8 )
-shader_param/radius_outer = 0.5
-shader_param/_phi_tail = 0.0
-shader_param/_phi_head = 0.0
-shader_param/clockwise = false
-shader_param/width_tail = 0.1
-shader_param/width_head = 0.2
 
 [sub_resource type="Animation" id=5]
 length = 0.2
@@ -40,7 +30,7 @@ resource_name = "slash"
 length = 0.133333
 step = 0.0166667
 tracks/0/type = "value"
-tracks/0/path = NodePath("Ammunition/SlashSprite:frame")
+tracks/0/path = NodePath("Ammunition/Melee/Slash:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/imported = false
@@ -52,7 +42,7 @@ tracks/0/keys = {
 "values": [ 0, 7 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Ammunition/SlashSprite:visible")
+tracks/1/path = NodePath("Ammunition/Melee/Slash:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -76,8 +66,23 @@ tracks/2/keys = {
 "values": [ true, false, true ]
 }
 
+[sub_resource type="RectangleShape2D" id=4]
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 8 )
+shader_param/radius_outer = 0.5
+shader_param/_phi_tail = 2.524
+shader_param/_phi_head = -2.663
+shader_param/clockwise = false
+shader_param/width_tail = 0.1
+shader_param/width_head = 0.2
+
 [node name="Player" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 5 )
+anims/slash = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 physics_interpolation_mode = 1
@@ -90,29 +95,25 @@ script = ExtResource( 3 )
 
 [node name="Melee" type="Area2D" parent="Ammunition"]
 script = ExtResource( 7 )
-length = 25.0
-width = 8.0
-
-[node name="Hitbox" type="CollisionShape2D" parent="Ammunition/Melee"]
-shape = SubResource( 4 )
-disabled = true
 
 [node name="Sprite" type="Sprite" parent="Ammunition/Melee"]
 position = Vector2( 12, 0 )
 texture = ExtResource( 6 )
 
-[node name="Cooldown" type="Timer" parent="Ammunition/Melee"]
-wait_time = 0.25
-one_shot = true
+[node name="Hitbox" type="CollisionShape2D" parent="Ammunition/Melee"]
+shape = SubResource( 4 )
+disabled = true
+script = ExtResource( 5 )
 
-[node name="SlashSprite" type="Sprite" parent="Ammunition"]
+[node name="Slash" type="Sprite" parent="Ammunition/Melee"]
+visible = false
 material = SubResource( 6 )
 texture = ExtResource( 4 )
 script = ExtResource( 9 )
 clockwise = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Ammunition/SlashSprite"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ammunition/Melee"]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 5 )
-anims/slash = SubResource( 3 )
+[node name="Cooldown" type="Timer" parent="Ammunition/Melee"]
+wait_time = 0.25
+one_shot = true
