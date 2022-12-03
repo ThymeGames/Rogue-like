@@ -8,11 +8,11 @@ var utils = preload("res://scripts/utils.gd")
 
 
 func set_length(value) -> void:
-	position = Vector2(value / 2.0, 0.0)
-	shape.extents = Vector2(value / 2.0, width / 2.0)
-	length = value
+    position = Vector2(value / 2.0, 0.0)
+    shape.extents = Vector2(value / 2.0, width / 2.0)
+    length = value
 
 
 func set_phi(value) -> void:
-	utils.set_rotation_with_position(self, value)
-	phi = value
+    utils.set_rotation_with_position(self, value)
+    phi = value

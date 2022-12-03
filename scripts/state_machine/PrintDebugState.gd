@@ -9,12 +9,12 @@ onready var next_state: BaseState = get_node(next_state_node)
 
 
 func enter():
-	print_debug(message_enter)
+    print_debug(message_enter)
 
 
 func exit() -> void:
-	print_debug(message_exit)
+    print_debug(message_exit)
 
 
 func process(delta: float) -> BaseState:
-	return next_state
+    return next_state

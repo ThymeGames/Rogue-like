@@ -17,9 +17,9 @@ var animation_player: AnimationPlayer
 
 
 func set_radius_outer(value):
-	material.set_shader_param("radius_outer", value)
-	radius_outer = value
+    material.set_shader_param("radius_outer", value)
+    radius_outer = value
 
 
 func set_clockwise(value):
-	material.set_shader_param("clockwise", value)
+    material.set_shader_param("clockwise", value)
