@@ -24,6 +24,7 @@ func _ready():
     init_dict()
 
 
+# warning-ignore:unused_argument
 func _process(delta: float):
     reset_actions()
 
@@ -34,10 +35,8 @@ func _process(delta: float):
     if player:
         var direction: Vector2 = player.position - host.position
 
-        if direction.length() < 100:
+        if direction.length() < 25:
             target = player.position
-
-    # print(target)
 
     go_to(target)
 

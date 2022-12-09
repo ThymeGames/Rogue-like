@@ -8,6 +8,7 @@ func enter():
     get_node("../../AnimatedSprite").play("blink")
 
 
+# warning-ignore:unused_argument
 func update(delta: float) -> BaseState:
     if not is_idle():
         return walk_state

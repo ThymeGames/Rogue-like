@@ -10,6 +10,20 @@ onready var sprite = $Sprite
 var utils = preload("res://scripts/utils.gd")
 
 
+func _ready() -> void:
+    $Hurtbox.colliders_exclude.append(weapon)
+
+
+func _process(delta):
+    move(delta)
+
+    update_look_rotation()
+    flip_h()
+
+    weapon.update_rotation(look_rotation)
+    action()
+
+
 func action() -> void:
     if not conductor.is_action_just_pressed("action"):
         return
@@ -39,12 +53,3 @@ func move(delta) -> void:
     var v_direction = conductor.get_move_vector()
     position = position + v_direction * speed * delta
 
-
-func _process(delta):
-    move(delta)
-
-    update_look_rotation()
-    flip_h()
-
-    weapon.update_rotation(look_rotation)
-    action()
