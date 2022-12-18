@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 
 export var speed = 200
 var look_rotation := 0.0  # radians
@@ -53,6 +53,11 @@ func move(delta) -> void:
     var v_direction = conductor.get_move_vector()
     if v_direction.length() > 0:
         animated_sprite.play("run")
-        position = position + v_direction * speed * delta
+        var velocity = move_and_slide(v_direction * speed)
+        for i in get_slide_count():
+            var collision = get_slide_collision(i)
+            print("I collided with ", collision.collider.name)
+        
+#        position = position + v_direction * speed * delta
     else:
         animated_sprite.play("idle")

@@ -14,7 +14,7 @@
 [ext_resource path="res://scripts/controllers/Keyboard.gd" type="Script" id=13]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 3, 1 )
+extents = Vector2( 8.5, 11 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -34,7 +34,7 @@ script = ExtResource( 2 )
 speed = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 7 )
+position = Vector2( 0.5, -3 )
 shape = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

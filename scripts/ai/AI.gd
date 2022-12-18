@@ -35,7 +35,7 @@ func _process(delta: float):
     if player:
         var direction: Vector2 = player.position - host.position
 
-        if direction.length() < 25:
+        if direction.length() < 50:
             target = player.position
 
     go_to(target)

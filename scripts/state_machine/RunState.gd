@@ -14,7 +14,7 @@ func enter():
 func update(delta: float) -> BaseState:
     var direction: Vector2 = get_vector()
 
-    host.position += direction * speed * delta
+    host.move_and_slide(direction * speed)
 
     if is_zero_approx(direction.length()):
         return idle_state
