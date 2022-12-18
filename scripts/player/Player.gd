@@ -56,4 +56,3 @@ func move(delta) -> void:
         position = position + v_direction * speed * delta
     else:
         animated_sprite.play("idle")
-
