@@ -8,7 +8,7 @@ onready var idle_state: BaseState = get_node(idle_node)
 
 
 func enter():
-    get_node("../../AnimatedSprite").play("walk")
+    host.get_node("AnimatedSprite").play("run")
 
 
 func update(delta: float) -> BaseState:

@@ -1,0 +1,5 @@
+outs:
+- md5: 632ecc5bda1ad072152d0d086daa787f.dir
+  size: 413155
+  nfiles: 668
+  path: dungeon

@@ -9,7 +9,7 @@ func init(host: Node2D, conductor) -> void:
         child.host = host
         assert(child is ConductedState)
         child.conductor = conductor
-        change_state(get_node(starting_state))
+    change_state(get_node(starting_state))
 
 
 func change_state(new_state: BaseState) -> void:

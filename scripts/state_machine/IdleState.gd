@@ -1,15 +1,15 @@
 extends ConductedState
 
-export(NodePath) var walk_node
-onready var walk_state: BaseState = get_node(walk_node)
+export(NodePath) var run_node
+onready var run_state: BaseState = get_node(run_node)
 
 
 func enter():
-    get_node("../../AnimatedSprite").play("blink")
+    host.get_node("AnimatedSprite").play("idle")
 
 
 # warning-ignore:unused_argument
 func update(delta: float) -> BaseState:
     if not is_idle():
-        return walk_state
+        return run_state
     return null

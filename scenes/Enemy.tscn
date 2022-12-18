@@ -1,48 +1,33 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
-[ext_resource path="res://scripts/state_machine/MoveState.gd" type="Script" id=3]
+[ext_resource path="res://scripts/state_machine/RunState.gd" type="Script" id=3]
 [ext_resource path="res://scripts/state_machine/StateManager.gd" type="Script" id=4]
 [ext_resource path="res://scripts/state_machine/IdleState.gd" type="Script" id=5]
 [ext_resource path="res://scripts/ai/AI.gd" type="Script" id=6]
-[ext_resource path="res://art/mobs/enemy-1/enemy-1-walk/enemy-1-animations-walk_2.png" type="Texture" id=7]
-[ext_resource path="res://art/mobs/enemy-1/enemy-1-walk/enemy-1-animations-walk_1.png" type="Texture" id=8]
-[ext_resource path="res://art/mobs/enemy-1/enemy-1-walk/enemy-1-animations-walk_3.png" type="Texture" id=9]
-[ext_resource path="res://art/mobs/enemy-1/enemy-1-walk/enemy-1-animations-walk_6.png" type="Texture" id=10]
-[ext_resource path="res://art/mobs/enemy-1/enemy-1-walk/enemy-1-animations-walk_4.png" type="Texture" id=11]
-[ext_resource path="res://art/mobs/enemy-1/enemy-1-walk/enemy-1-animations-walk_5.png" type="Texture" id=12]
-[ext_resource path="res://art/mobs/enemy-1/enemy-1-animations-blink.png" type="Texture" id=13]
+[ext_resource path="res://art/dungeon/frames/skelet_run_anim/skelet_run_anim_1.png" type="Texture" id=7]
+[ext_resource path="res://art/dungeon/frames/skelet_idle_anim/skelet_idle_anim_2.png" type="Texture" id=8]
+[ext_resource path="res://art/dungeon/frames/skelet_idle_anim/skelet_idle_anim_3.png" type="Texture" id=9]
+[ext_resource path="res://art/dungeon/frames/skelet_run_anim/skelet_run_anim_0.png" type="Texture" id=10]
+[ext_resource path="res://art/dungeon/frames/skelet_run_anim/skelet_run_anim_2.png" type="Texture" id=11]
+[ext_resource path="res://art/dungeon/frames/skelet_run_anim/skelet_run_anim_3.png" type="Texture" id=12]
+[ext_resource path="res://art/dungeon/frames/skelet_idle_anim/skelet_idle_anim_0.png" type="Texture" id=13]
+[ext_resource path="res://art/dungeon/frames/skelet_idle_anim/skelet_idle_anim_1.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 5.5, 1 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 13 )
-region = Rect2( 0, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 13 )
-region = Rect2( 16, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 13 )
-region = Rect2( 32, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 13 )
-region = Rect2( 0, 16, 16, 16 )
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
-"name": "blink",
-"speed": 5.0
+"name": "idle",
+"speed": 15.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
-"name": "walk",
-"speed": 10.0
+"name": "run",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -61,7 +46,8 @@ shape = SubResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "blink"
+animation = "idle"
+frame = 2
 offset = Vector2( 1, -4 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -87,13 +73,13 @@ habitat = Vector2( 50, 50 )
 script = ExtResource( 4 )
 starting_state = NodePath("Idle")
 
-[node name="Move" type="Node" parent="StateManager"]
+[node name="Run" type="Node" parent="StateManager"]
 script = ExtResource( 3 )
 idle_node = NodePath("../Idle")
 
 [node name="Idle" type="Node" parent="StateManager"]
 script = ExtResource( 5 )
-walk_node = NodePath("../Move")
+run_node = NodePath("../Run")
 
 [node name="Hitbox" type="Area2D" parent="."]
 

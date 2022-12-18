@@ -15,7 +15,7 @@ centered = false
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 200, 100 )
+position = Vector2( 100, 100 )
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 26, 57 )
