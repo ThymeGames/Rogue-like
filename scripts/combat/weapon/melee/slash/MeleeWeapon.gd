@@ -74,5 +74,4 @@ func update_rotation(look_rotation = null) -> void:
         utils.set_rotation_with_position(hitbox, rotation_new)
 
     utils.set_rotation_with_position(sprite, hitbox.rotation)
-
-    z_index = int(sign(rotation))
+    sprite.z_index = int(sign(sprite.rotation))

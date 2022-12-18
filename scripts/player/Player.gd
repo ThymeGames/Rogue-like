@@ -4,8 +4,8 @@ export var speed = 200
 var look_rotation := 0.0  # radians
 
 onready var weapon = $Ammunition/Melee
-onready var conductor = $Conductor
-onready var sprite = $Sprite
+onready var conductor = $Keyboard
+onready var animated_sprite = $AnimatedSprite
 
 var utils = preload("res://scripts/utils.gd")
 
@@ -46,10 +46,14 @@ func is_looking_left() -> bool:
 
 
 func flip_h() -> void:
-    sprite.flip_h = is_looking_left()
+    animated_sprite.flip_h = is_looking_left()
 
 
 func move(delta) -> void:
     var v_direction = conductor.get_move_vector()
-    position = position + v_direction * speed * delta
+    if v_direction.length() > 0:
+        animated_sprite.play("run")
+        position = position + v_direction * speed * delta
+    else:
+        animated_sprite.play("idle")
 
