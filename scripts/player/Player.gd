@@ -11,7 +11,7 @@ var utils = preload("res://scripts/utils.gd")
 
 
 func _ready() -> void:
-    $Hurtbox.colliders_exclude.append(weapon)
+    $Hurtbox.hitboxes_exclude.append(weapon.hitbox)
 
 
 func _process(delta):
@@ -56,7 +56,7 @@ func move(delta) -> void:
         var velocity = move_and_slide(v_direction * speed)
         for i in get_slide_count():
             var collision = get_slide_collision(i)
-            print("I collided with ", collision.collider.name)
+#            print("I collided with ", collision.collider.name)
         
 #        position = position + v_direction * speed * delta
     else:

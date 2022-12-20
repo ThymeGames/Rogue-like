@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 class_name MeleeWeapon
 
 export(float, 0.0, 64.0) var hitbox_length = 32.0  # pixels
@@ -8,7 +8,7 @@ export(float, 0.0, 1.0) var shash_duration = 1.0  # seconds
 onready var sprite: Sprite = $Sprite
 onready var slash: SlashSprite = $Slash
 onready var cooldown: Timer = $Cooldown
-onready var hitbox: CollisionShape2D = $Hitbox
+onready var hitbox: Area2D = $Hitbox
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var slash_animator: SlashAnimator

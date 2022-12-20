@@ -7,8 +7,6 @@
 [ext_resource path="res://art/dungeon/frames/weapon_mace/weapon_mace.png" type="Texture" id=5]
 [ext_resource path="res://shaders/slash.gdshader" type="Shader" id=6]
 
-[sub_resource type="RectangleShape2D" id=4]
-
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 6 )
 shader_param/radius_outer = 0.5
@@ -18,14 +16,11 @@ shader_param/clockwise = false
 shader_param/width_tail = 0.1
 shader_param/width_head = 0.2
 
-[node name="Melee" type="Area2D"]
+[sub_resource type="RectangleShape2D" id=4]
+
+[node name="Melee" type="Node2D"]
 script = ExtResource( 2 )
 shash_duration = 0.289
-
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
-disabled = true
-script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 5 )
@@ -41,3 +36,10 @@ script = ExtResource( 3 )
 [node name="Cooldown" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+monitoring = false
+script = ExtResource( 4 )
+
+[node name="Collider" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 4 )

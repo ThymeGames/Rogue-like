@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
+[ext_resource path="res://scripts/combat/Hurtbox.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://scripts/state_machine/RunState.gd" type="Script" id=3]
 [ext_resource path="res://scripts/state_machine/StateManager.gd" type="Script" id=4]
@@ -15,7 +16,7 @@
 [ext_resource path="res://art/dungeon/frames/skelet_idle_anim/skelet_idle_anim_1.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 5.5, 1 )
+extents = Vector2( 6, 1.5 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -31,30 +32,29 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 5.5, 2.5 )
+extents = Vector2( 11, 9.5 )
 
-[sub_resource type="CapsuleShape2D" id=8]
-radius = 3.0
-height = 8.0
+[sub_resource type="CircleShape2D" id=8]
 
 [node name="Enemy" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, 3 )
+position = Vector2( 0, 2.5 )
 shape = SubResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "idle"
-frame = 2
 offset = Vector2( 1, -4 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 monitorable = false
+script = ExtResource( 1 )
+health = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( -0.5, -1.5 )
+position = Vector2( 0, -4.5 )
 shape = SubResource( 6 )
 
 [node name="AI" type="Node" parent="."]
@@ -84,7 +84,6 @@ run_node = NodePath("../Run")
 [node name="Hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, -3 )
 rotation = 1.5708
 shape = SubResource( 8 )
-
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]

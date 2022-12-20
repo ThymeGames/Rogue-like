@@ -4,11 +4,13 @@ extends KinematicBody2D
 func _ready() -> void:
     var conductor = $AI
     $StateManager.init(self, conductor)
+    $Hurtbox.connect("zero_health", self, "die")
 
 
 func _process(delta):
     $StateManager.update(delta)
 
 
-func _on_Hurtbox_area_entered(hitbox: Area2D) -> void:
-    print("Enemy takes damage from %s!" % hitbox.get_parent().name)
+func die():
+    print("well... I'm dead")
+    queue_free()

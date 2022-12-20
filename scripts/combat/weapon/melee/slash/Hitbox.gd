@@ -1,4 +1,4 @@
-extends CollisionShape2D
+extends BaseHitbox
 
 export(float, 2.0, 10.0) var width = 4.0  # pixels
 export(float, 2.0, 32.0) var length = 16.0 setget set_length  # pixels
@@ -8,8 +8,9 @@ var utils = preload("res://scripts/utils.gd")
 
 
 func set_length(value) -> void:
+    var collider = $Collider
     position = Vector2(value / 2.0, 0.0)
-    shape.extents = Vector2(value / 2.0, width / 2.0)
+    collider.shape.extents = Vector2(value / 2.0, width / 2.0)
     length = value
 
 

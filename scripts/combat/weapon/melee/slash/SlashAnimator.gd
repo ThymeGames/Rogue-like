@@ -10,7 +10,7 @@ export var phi_end := PI
 
 export var clockwise := true setget set_clockwise
 
-var hitbox: CollisionShape2D
+var hitbox: Area2D
 var slash: Sprite
 var animation_player: AnimationPlayer
 
@@ -74,14 +74,14 @@ func allocate_track_hitbox() -> void:
     animation.track_set_path(track_index, "%s:phi" % path)
 
     track_index = animation.add_track(Animation.TYPE_VALUE)
-    track_mapper["disabled"] = track_index
-    animation.track_set_path(track_index, "%s:disabled" % path)
+    track_mapper["monitorable"] = track_index
+    animation.track_set_path(track_index, "%s:monitorable" % path)
 
     animation.track_insert_key(track_mapper["phi"], 0.0, 0.0)
     animation.track_insert_key(track_mapper["phi"], duration, 0.0)
 
-    animation.track_insert_key(track_mapper["disabled"], 0.0, false)
-    animation.track_insert_key(track_mapper["disabled"], duration, true)
+    animation.track_insert_key(track_mapper["monitorable"], 0.0, true)
+    animation.track_insert_key(track_mapper["monitorable"], duration, false)
 
 
 func allocate_tracks() -> void:
@@ -94,7 +94,7 @@ func set_duration(value) -> void:
     duration = value
     animation.length = duration
     animation.track_set_key_time(track_mapper["visible"], 1, value)
-    animation.track_set_key_time(track_mapper["disabled"], 1, value)
+    animation.track_set_key_time(track_mapper["monitorable"], 1, value)
 
 
 func update_tracks() -> void:
