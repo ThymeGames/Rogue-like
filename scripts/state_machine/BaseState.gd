@@ -14,5 +14,6 @@ func exit() -> void:
     # print_debug(name)
 
 
+# warning-ignore:unused_argument
 func update(delta: float) -> BaseState:
     return null

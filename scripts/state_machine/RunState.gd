@@ -8,13 +8,13 @@ onready var idle_state: BaseState = get_node(idle_node)
 
 
 func enter():
-    get_node("../../AnimatedSprite").play("walk")
+    host.get_node("AnimatedSprite").play("run")
 
 
 func update(delta: float) -> BaseState:
     var direction: Vector2 = get_vector()
 
-    host.position += direction * speed * delta
+    host.move_and_slide(direction * speed)
 
     if is_zero_approx(direction.length()):
         return idle_state
