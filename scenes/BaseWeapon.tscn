@@ -4,6 +4,7 @@
 
 [node name="BaseWeapon" type="Node2D"]
 script = ExtResource( 1 )
+holding_distance = 15
 
 [node name="Sprite" type="Sprite" parent="."]
 
