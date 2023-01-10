@@ -15,7 +15,6 @@ var utils = preload("res://scripts/utils.gd")
 
 
 func _ready() -> void:
-
     hitbox.length = hitbox_length
 
     var slash_size: Vector2 = slash.get_rect().size
@@ -32,7 +31,6 @@ func _ready() -> void:
 
 
 func _action() -> void:
-
     var phi_start: float = hitbox.rotation
     var phi_end: float = phi_start - slash_length * attack_sign
 
@@ -52,9 +50,7 @@ func _update_attack_sign() -> void:
 
 
 func update_rotation(look_rotation = null) -> void:
-
     if cooldown.is_stopped():
-        
         var slash_length_half = slash_length / 2.0
 
         if look_rotation == null:
@@ -62,8 +58,7 @@ func update_rotation(look_rotation = null) -> void:
 
         var rotation_new = look_rotation + attack_sign * slash_length_half
         rotation_new = utils.clip_rotation(rotation_new)
-    
+
         utils.set_rotation_with_position(hitbox, rotation_new)
 
     utils.set_rotation_with_position(sprite, hitbox.rotation)
-

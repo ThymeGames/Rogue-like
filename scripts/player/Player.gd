@@ -11,11 +11,13 @@ var conductor
 
 var utils = preload("res://scripts/utils.gd")
 
+
 func _ready() -> void:
     conductor = get_node(conductor_node)
     if "hitbox" in weapon:
         $Hurtbox.hitboxes_exclude.append(weapon.hitbox)
     weapon.holding_distance = 15
+
 
 func _process(delta):
     move(delta)
