@@ -30,9 +30,6 @@ func _release_projectile():
         projectile = null
 
 
-#
-
-
 func _action() -> void:
     if projectile == null:
         return

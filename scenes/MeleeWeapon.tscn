@@ -34,6 +34,7 @@ texture = ExtResource( 4 )
 script = ExtResource( 6 )
 
 [node name="Hitbox" type="Area2D" parent="." index="4"]
+collision_layer = 4
 monitoring = false
 script = ExtResource( 7 )
 
