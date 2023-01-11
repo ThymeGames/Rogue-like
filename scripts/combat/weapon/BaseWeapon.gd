@@ -2,7 +2,7 @@ extends Node2D
 class_name BaseWeapon
 
 export(float, 0.0, 1.0) var wait_time = 1.0  # seconds
-export(float, 0.0, 1.0) var damage = 1.0  # seconds
+export(float, 0.0, 100.0) var damage = 1.0
 export(int, 0, 100) var holding_distance = 20 setget set_holding_distance  # pixels
 
 onready var sprite: Sprite = $Sprite

@@ -18,11 +18,14 @@ func _ready() -> void:
 func _spawn_projectile():
     projectile = projectile_scn.instance()
     add_child(projectile)
-    print("spawned projectile")
+
+
+#    print("spawned projectile")
 
 
 func _release_projectile():
     projectile.velocity = 400.0
+    projectile.activate_hitbox()
     if world:
         remove_child(projectile)
         world.add_child(projectile)
@@ -34,7 +37,6 @@ func _action() -> void:
     if projectile == null:
         return
     _release_projectile()
-    print("action")
 
 
 func _process(delta):
