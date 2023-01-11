@@ -13,7 +13,6 @@ onready var animation_player: AnimationPlayer = $AnimationPlayer
 func _ready() -> void:
     cooldown.wait_time = wait_time
     cooldown.stop()
-    print("BaseWeapon _ready(...)")
     set_holding_distance(holding_distance)
 
 
@@ -23,7 +22,7 @@ func set_holding_distance(value: int) -> void:
     holding_distance = value
     var u = Vector2.RIGHT.rotated(rotation)
     sprite.position = u * holding_distance
-    prints("holding_distance is set to", value, "in", name)
+#    prints("holding_distance is set to", value, "in", name)
 
 
 func action() -> void:

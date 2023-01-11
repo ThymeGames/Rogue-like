@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var speed = 200
 var look_rotation := 0.0  # radians
 
-onready var weapon = $Ammunition/Bow
+onready var weapon = $Ammunition/Mace
 onready var animated_sprite = $AnimatedSprite
 
 export(NodePath) var conductor_node
@@ -14,9 +14,14 @@ var utils = preload("res://scripts/utils.gd")
 
 func _ready() -> void:
     conductor = get_node(conductor_node)
-    if "hitbox" in weapon:
-        $Hurtbox.hitboxes_exclude.append(weapon.hitbox)
+#    if "hitbox" in weapon:
+#        $Hurtbox.hitboxes_exclude.append(weapon.hitbox)
     weapon.holding_distance = 15
+    $Hurtbox.connect("zero_health", self, "die")
+    
+func die():
+    print("Player is dead")
+    queue_free()
 
 
 func _process(delta):

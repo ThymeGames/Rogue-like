@@ -18,7 +18,7 @@ func _on_self_area_entered(area: Area2D) -> void:
         return
 
     if not (hitbox in hitboxes_exclude):
-        var msg = "%s touched me" % hitbox.name
+        var msg = "%s touched me" % hitbox.get_parent().name
         print(msg)
         prints("I'll take", hitbox.damage, "damage")
         take_damage(hitbox.damage)

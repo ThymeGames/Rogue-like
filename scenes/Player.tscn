@@ -57,7 +57,7 @@ script = ExtResource( 1 )
 [node name="Ammunition" type="Node2D" parent="."]
 
 [node name="Mace" parent="Ammunition" instance=ExtResource( 14 )]
-visible = false
+wait_time = 0.2
 holding_distance = 20
 
 [node name="Bow" parent="Ammunition" instance=ExtResource( 4 )]
