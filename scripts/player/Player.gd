@@ -3,15 +3,25 @@ extends KinematicBody2D
 export var speed = 200
 var look_rotation := 0.0  # radians
 
-onready var weapon = $Ammunition/Melee
-onready var conductor = $Keyboard
+onready var weapon = $Ammunition/Mace
 onready var animated_sprite = $AnimatedSprite
+
+export(NodePath) var conductor_node
+var conductor
 
 var utils = preload("res://scripts/utils.gd")
 
 
 func _ready() -> void:
-    $Hurtbox.hitboxes_exclude.append(weapon.hitbox)
+    conductor = get_node(conductor_node)
+#    if "hitbox" in weapon:
+#        $Hurtbox.hitboxes_exclude.append(weapon.hitbox)
+    weapon.holding_distance = 15
+    $Hurtbox.connect("zero_health", self, "die")
+    
+func die():
+    print("Player is dead")
+    queue_free()
 
 
 func _process(delta):
@@ -21,13 +31,14 @@ func _process(delta):
     flip_h()
 
     weapon.update_rotation(look_rotation)
+    weapon.z_index = int(sign(weapon.sprite.rotation))
     action()
 
 
 func action() -> void:
     if not conductor.is_action_just_pressed("action"):
         return
-    weapon.do_slash()
+    weapon.action()
 
 
 func update_look_rotation(min_look_vector_length := 0.1) -> void:
@@ -54,10 +65,9 @@ func move(delta) -> void:
     if v_direction.length() > 0:
         animated_sprite.play("run")
         var velocity = move_and_slide(v_direction * speed)
-        for i in get_slide_count():
-            var collision = get_slide_collision(i)
+#        for i in get_slide_count():
+#            var collision = get_slide_collision(i)
 #            print("I collided with ", collision.collider.name)
-        
 #        position = position + v_direction * speed * delta
     else:
         animated_sprite.play("idle")

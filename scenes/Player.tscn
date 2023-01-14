@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
+[ext_resource path="res://scripts/controllers/Joypad.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://scripts/combat/Hurtbox.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Melee.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/RangedWeapon.tscn" type="PackedScene" id=4]
 [ext_resource path="res://art/dungeon/frames/lizard_m_idle_anim/lizard_m_idle_anim_2.png" type="Texture" id=5]
 [ext_resource path="res://art/dungeon/frames/lizard_m_idle_anim/lizard_m_idle_anim_3.png" type="Texture" id=6]
 [ext_resource path="res://art/dungeon/frames/lizard_m_idle_anim/lizard_m_idle_anim_0.png" type="Texture" id=7]
@@ -12,6 +13,7 @@
 [ext_resource path="res://art/dungeon/frames/lizard_m_run_anim/lizard_m_run_anim_1.png" type="Texture" id=11]
 [ext_resource path="res://art/dungeon/frames/lizard_m_run_anim/lizard_m_run_anim_0.png" type="Texture" id=12]
 [ext_resource path="res://scripts/controllers/Keyboard.gd" type="Script" id=13]
+[ext_resource path="res://scenes/MeleeWeapon.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 7, 1 )
@@ -35,6 +37,7 @@ animations = [ {
 collision_mask = 6
 script = ExtResource( 2 )
 speed = 100
+conductor_node = NodePath("Joypad")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5 )
@@ -48,13 +51,20 @@ animation = "idle"
 [node name="Keyboard" type="Node" parent="."]
 script = ExtResource( 13 )
 
+[node name="Joypad" type="Node" parent="."]
+script = ExtResource( 1 )
+
 [node name="Ammunition" type="Node2D" parent="."]
 
-[node name="Melee" parent="Ammunition" instance=ExtResource( 4 )]
-hitbox_length = 40.0
+[node name="Mace" parent="Ammunition" instance=ExtResource( 14 )]
+wait_time = 0.2
+holding_distance = 20
 
-[node name="Sprite" parent="Ammunition/Melee" index="0"]
-position = Vector2( 20, 0 )
+[node name="Bow" parent="Ammunition" instance=ExtResource( 4 )]
+holding_distance = 20
+
+[node name="Sprite" parent="Ammunition/Bow" index="0"]
+position = Vector2( 10, 0 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_mask = 2
@@ -65,4 +75,5 @@ script = ExtResource( 3 )
 position = Vector2( 0, -3 )
 shape = SubResource( 4 )
 
-[editable path="Ammunition/Melee"]
+[editable path="Ammunition/Mace"]
+[editable path="Ammunition/Bow"]

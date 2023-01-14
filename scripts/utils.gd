@@ -17,3 +17,13 @@ static func clip_rotation(angle: float) -> float:
     if angle > PI:
         angle -= 2 * PI
     return angle
+
+
+static func find_grandparent_with_group(node: Node, group := "world"):
+    while true:
+        node = node.get_parent()
+        if node == null:
+            break
+        if group in node.get_groups():
+            break
+    return node
